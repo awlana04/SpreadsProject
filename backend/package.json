@@ -1,0 +1,39 @@
+{
+  "name": "spreads_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.ts",
+    "build": "tsc",
+    "buildbabel": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
+    "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
+    "knex:seed": "knex --knexfile knexfile.ts seed:run",
+    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.10",
+    "express": "^4.17.1",
+    "knex": "^0.21.12",
+    "multer": "^1.4.2",
+    "pg": "^8.5.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-typescript": "^7.12.7",
+    "@types/cors": "^2.8.8",
+    "@types/express": "^4.17.8",
+    "@types/multer": "^1.4.4",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "ts-node": "^9.0.0",
+    "ts-node-dev": "^1.0.0",
+    "typescript": "^4.0.5"
+  }
+}
