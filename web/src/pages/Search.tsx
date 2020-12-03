@@ -2,6 +2,7 @@ import React from 'react';
 
 import Logo from '../images/logo.svg';
 import Line from '../images/line.svg';
+import Line2 from '../images/line_2.svg';
 
 import '../styles/pages/search.css';
 
@@ -61,6 +62,43 @@ function Search() {
 
           <div className="textSix">
             <h3>BackOffice</h3>
+          </div>
+        </div>
+
+        <div className="registers">
+          <div className="firstColor">
+            <div className="socialReason">
+              <p>Nenhuma</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="uf">
+              <p>PA</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="phoneNumber">
+              <p>(91) 9 4002-8922</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="personType">
+              <p>Uma bem doida</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="inclusionDate">
+              <p>Nenhuma</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="backOffice">
+              <p>O que é isso?</p>
+            </div>
+
+          </div>
+          <div className="secondColor">
+
           </div>
         </div>
 
