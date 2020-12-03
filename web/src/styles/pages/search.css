@@ -4,6 +4,7 @@
 
 #search-page div.inputs {
   margin-top: 35px;
+  margin-bottom: 15px;
 
   font-size: 26px;
   color: #000;
@@ -65,4 +66,58 @@
 
 #search-page div.inputs div.button button:hover {
   background: #FF8B03;
+}
+
+ #search-page div.table div.text {
+  margin: 25px 70px;
+
+  color: #FFFFFF;
+  font-size: 26px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: row;
+}
+
+#search-page div.table div.text div.textOne, div.textTwo, div.textThree,
+  div.textFour, div.textFive, div.textSix {
+    background: #FF8B03;
+    box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  }
+
+#search-page div.table div.text div.textTwo, div.textThree, div.textFour,
+  div.textFive, div.textSix {
+    margin: 0 20px;
+  }
+
+#search-page div.table div.text div.textOne {
+  width: 165px;
+  height: 50px;
+
+}
+
+#search-page div.table div.text div.textTwo {
+  width: 65px;
+  height: 50px;
+}
+
+#search-page div.table div.text div.textThree {
+  width: 165px;
+  height: 50px;
+}
+
+#search-page div.table div.text div.textFour {
+  width: 195px;
+  height: 50px;
+}
+
+
+#search-page div.table div.text div.textFive {
+  width: 200px;
+  height: 50px;
+}
+
+#search-page div.table div.text div.textSix {
+  width: 175px;
+  height: 50px;
 }

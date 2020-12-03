@@ -36,6 +36,35 @@ function Search() {
       </div>
 
       <img src={Line} alt="Line" />
+
+      <div className="table">
+        <div className="text">
+          <div className="textOne">
+            <h3>Razão social</h3>
+          </div>
+
+          <div className="textTwo">
+            <h3>UF</h3>
+          </div>
+
+          <div className="textThree">
+            <h3>Telefone</h3>
+          </div>
+
+          <div className="textFour">
+            <h3>Tipo de Pessoa</h3>
+          </div>
+
+          <div className="textFive">
+            <h3>Data de Inclusão</h3>
+          </div>
+
+          <div className="textSix">
+            <h3>BackOffice</h3>
+          </div>
+        </div>
+
+      </div>
     </div>
   )
 };
