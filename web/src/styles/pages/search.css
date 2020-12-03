@@ -1,0 +1,68 @@
+#search-page {
+  margin: 50px;
+}
+
+#search-page div.inputs {
+  margin-top: 35px;
+
+  font-size: 26px;
+  color: #000;
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#search-page div.inputs select {
+  width: 100%;
+
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+}
+
+#search-page div.inputs select, input {
+  width: 460px;
+  height: 70px;
+  margin-top: 5px;
+
+  flex: 1;
+  
+  background: #E8E8E8;
+  border: 0;
+  
+  border-radius: 25px;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  background: #E8E8E8 url('../../images/vector.svg') 95.5% 50% no-repeat;
+}
+
+#search-page div.inputs div.districtAttorneySelection {
+  position: absolute;
+  padding-left: 525px;
+}
+
+#search-page div.inputs div.button button {
+  width: 150px;
+  height: 70px;
+  
+  position: absolute;
+  margin-top: -10px;
+  margin-left: 675px;
+  
+  flex: 1;
+  
+  cursor: pointer;
+  font-size: 26px;
+  color: #FFFFFF;
+  background: #F56D20;
+  border: 0;
+  
+  border-radius: 25px;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+
+  transition: 0.5s;
+}
+
+#search-page div.inputs div.button button:hover {
+  background: #FF8B03;
+}
