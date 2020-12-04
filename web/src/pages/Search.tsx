@@ -95,10 +95,37 @@ function Search() {
             <div className="backOffice">
               <p>O que é isso?</p>
             </div>
-
           </div>
-          <div className="secondColor">
 
+          <div className="secondColor">
+            <div className="socialReason">
+              <p>Nenhuma</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="uf">
+              <p>PA</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="phoneNumber">
+              <p>(91) 9 4002-8922</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="personType">
+              <p>Uma bem doida</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="inclusionDate">
+              <p>Nenhuma</p>
+              <img src={Line2} alt="A white line to separete the informations"/>
+            </div>
+
+            <div className="backOffice">
+              <p>O que é isso?</p>
+            </div>
           </div>
         </div>
 
