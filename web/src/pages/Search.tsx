@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import api from '../services/api';
 
 import Logo from '../images/logo.svg';
 import Line from '../images/line.svg';
@@ -6,28 +8,80 @@ import Line2 from '../images/line_2.svg';
 
 import '../styles/pages/search.css';
 
+interface datas {
+  id: number;
+  razão_social: number;
+  uf: string;
+  telefone: number;
+  tipo_de_pessoa: string;
+  data_inclusao: number;
+  status_backoffice: string;
+};
+
+interface supervisers {
+  supervisao_prisma: string;
+};
+
 function Search() {
+  const [data, setData] = useState<datas[]>([]);
+  const [superviser, setSuperviser] = useState<string[]>([]);
+
+  useEffect(() => {
+    api.get('conclude').then(response => {
+      setData(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    api.get<supervisers[]>('conclude').then((response) => {
+      const supervisersList = response.data.map((supervisers) => supervisers.supervisao_prisma);
+
+      setSuperviser(supervisersList);
+    });
+  }, []);
+
   return (
     <div id="search-page">
       <img src={Logo} alt="Logo"/>
 
       <div className="search">
         <div className="inputs">
-          <div className="superviserSelection">
-            <label htmlFor="">Supervisor</label><br />
-            
-            <select className="superviser" disabled>
-              <option value=""></option>
-              <input type="hidden" name="superviser" />
-            </select>
+          <div className="input">
+            <div className="superviserSelection">
+              <label htmlFor="superviser">Supervisor</label><br />
+              
+              <select className="superviser">
+                {superviser.map((supervisers) => {
+                  return (
+                    <option 
+                      key={supervisers} 
+                      value={supervisers}>{supervisers}
+                    </option>
+                  )
+                })}
+                
+                <input type="hidden" name="superviser" />
+              </select>
+            </div>
           </div>
 
-          <div className="districtAttorneySelection">
-            <label htmlFor="">Promotor</label><br />
-            <select className="districtAttorney" disabled>
-              <option value=""></option>
-              <input type="hidden" name="districtAttorney" />
-            </select>
+          <div className="input">
+            <div className="districtAttorneySelection">
+              <label htmlFor="districtAttorney">Promotor</label><br />
+              
+              <select className="districtAttorney">
+                {superviser.map((supervisers) => {
+                  return (
+                    <option 
+                      key={supervisers} 
+                      value={supervisers}>{supervisers}
+                    </option>
+                  )
+                })}
+                
+                <input type="hidden" name="districtAttorney" />
+              </select>
+            </div>
           </div>
 
           <div className="button">
