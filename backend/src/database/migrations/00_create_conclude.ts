@@ -1,4 +1,4 @@
-import Knex from 'knex'
+import Knex from 'knex';
 
 export async function up(knex: Knex) {
   return knex.schema.createTable('conclude', table => {
@@ -18,9 +18,9 @@ export async function up(knex: Knex) {
     table.string('supervisao_prisma')
     table.string('coordenador_prisma')
     table.string('gerente_prisma')
-  })
-}
+  });
+};
 
 export async function down(knex: Knex) {
-  knex.schema.dropTable('conclude')
-}
+  knex.schema.dropTable('conclude');
+};

@@ -1,12 +1,9 @@
-import path from 'path'
+import path from 'path';
 
 module.exports = {
-  client: 'pg',
+  client: 'sqlite3',
   connection: {
-    host: 'spreads-master.cqzjqsedeu8t.sa-east-1.rds.amazonaws.com',
-    user: 'postgres',
-    password: 'Pr1sm45pr3ds',
-    database: 'postgres'
+    filename: path.resolve(__dirname, 'src', 'database', 'database.sqlite')
   },
   migrations: {
     directory: path.resolve(__dirname, 'src', 'database', 'migrations')
@@ -15,4 +12,4 @@ module.exports = {
     directory: path.resolve(__dirname, 'src', 'database', 'seeds')
   },
   useNullAsDefault: true,
-}
+};

@@ -1,19 +1,20 @@
-import express from 'express'
-import path from 'path'
-import routes from './routes'
-import cors from 'cors'
+import express from 'express';
+import path from 'path';
+import cors from 'cors';
 
-var port = process.env.PORT || 3333;
+import routes from './routes';
 
-const app = express()
+// var port = process.env.PORT || 3333;
 
-app.use(cors())
-app.use(express.json())
+const app = express();
 
-app.use(routes)
+app.use(cors());
+app.use(express.json());
+app.use(routes);
+app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
 
-app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')))
+app.listen(3333);
 
-app.listen(port, () => {
-  console.log('Backend Started...')
-})
+// app.listen(port, () => {
+//   console.log('Backend Started...')
+// })
