@@ -27,7 +27,7 @@ interface supervisers {
 
 function Search() {
   const [data, setData] = useState<datas[]>([]);
-  const [superviser, setSuperviser] = useState<string[]>([]);
+  const [superviserList, setSuperviserList] = useState<string[]>([]);
   const [id, setId] = useState<number[]>([])
 
   const [selectedSuperviser, setSelectedSuperviser] = useState('0');
@@ -39,9 +39,15 @@ function Search() {
 
     api.get('supervisor').then(response => {
       const supervisores = response.data.map((supervisor: any) => supervisor.supervisao_prisma)
-      setSuperviser(supervisores)
+      setSuperviserList(supervisores)
     })
   }, []);
+
+  function getOnlySupervisorOrPromoterData(supervisor, promotor) {
+    api.get(`conclude?supervisor=${name}&promotor=${promotor}`).then(response => {
+      setData(response.data)
+    })
+  }
 
 
   // useEffect(() => {
@@ -55,7 +61,7 @@ function Search() {
   // }, []);
 
   console.log(data)
-  console.log(superviser)
+  console.log(superviserList)
 
   // $(function () {
   //   $('div.table').hide();
@@ -78,14 +84,12 @@ function Search() {
               <select className="superviser">
                 <option value=""></option>
 
-                {superviser.map((supervisers) => {
-                  return (
-                    <option
-                      key={supervisers}
-                      value={supervisers}>{supervisers}
-                    </option>
-                  )
-                })}
+                {superviserList.map((superviser) => (
+                  <option
+                    key={superviser}
+                    value={superviser}>{superviser}
+                  </option>
+                ))}
 
                 <input type="hidden" name="superviser" />
               </select>
