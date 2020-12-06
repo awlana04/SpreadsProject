@@ -56,7 +56,7 @@ function Search() {
 
   return (
     <div id="search-page">
-      <img src={Logo} alt="Logo"/>
+      <img src={Logo} alt="Logo" className="logo" />
 
       <div className="search">
         <div className="inputs">
@@ -65,6 +65,8 @@ function Search() {
               <label htmlFor="superviser">Supervisor</label><br />
               
               <select className="superviser">
+                <option value=""></option>
+                
                 {superviser.map((supervisers) => {
                   return (
                     <option 
@@ -156,7 +158,7 @@ function Search() {
         </div>
       </div>
 
-      <img src={Line} alt="Line" />
+      <img src={Line} alt="Line" className="blackLine" />
 
       </div>
     </div>
