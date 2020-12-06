@@ -7,8 +7,20 @@
 }
 
 /* Table Texts information */
-#search-page div.table div.text {
+/* #search-page div.table div.text {
   margin: 25px 70px;
+
+  color: #FFFFFF;
+  font-size: 26px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: row;
+} */
+
+#search-page div.table div.text {
+  position: absolute;
+  margin: 125px -410px;
 
   color: #FFFFFF;
   font-size: 26px;
@@ -61,7 +73,7 @@
 }
 
 /* Registers result */
-#search-page div.table div.registers div.firstColor, 
+/* #search-page div.table div.registers div.firstColor, 
   #search-page div.table div.registers div.secondColor {
     width: 1145px;
     height: 70px;
@@ -135,4 +147,75 @@
   #search-page div.table div.registers div.secondColor div.inclusionDate p,
   #search-page div.table div.registers div.secondColor div.backOffice p {
     margin: 15px 30px;
+  } */
+
+#search-page div.table div.registers div.firstColor:first-child {
+  width: 1145px;
+  height: 70px;
+  position: absolute;
+  margin: 200px -410px;
+
+  cursor: pointer;
+
+  font-size: 26px;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+    
+  display: flex;
+  flex-direction: row;
+
+  transition: 2s;
+}
+
+#search-page div.table div.registers div.firstColor {
+  width: 1145px;
+  height: 70px;
+  position: absolute;
+  margin: auto -410px;
+
+  cursor: pointer;
+
+  font-size: 26px;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+    
+  display: flex;
+  flex-direction: row;
+
+  transition: 2s;
+}
+
+#search-page div.table div.registers div.firstColor:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+#search-page div.table div.registers div.firstColor {
+  background: #F56D20;
+}
+
+#search-page div.table div.registers div.firstColor div.socialReason {
+  margin-left: 15px;
+}
+
+#search-page div.table div.registers div.firstColor div.inclusionDate img {
+  margin-left: 80px;
+}
+
+#search-page div.table div.registers div.firstColor div.socialReason,
+  #search-page div.table div.registers div.firstColor div.uf, 
+  #search-page div.table div.registers div.firstColor div.phoneNumber, 
+  #search-page div.table div.registers div.firstColor div.personType,
+  #search-page div.table div.registers div.firstColor div.inclusionDate,
+  #search-page div.table div.registers div.firstColor div.backOffice {
+    display: flex;
+    flex-direction: row;
   }
+
+  #search-page div.table div.registers div.firstColor div.socialReason p,
+  #search-page div.table div.registers div.firstColor div.uf p, 
+  #search-page div.table div.registers div.firstColor div.phoneNumber p, 
+  #search-page div.table div.registers div.firstColor div.personType p,
+  #search-page div.table div.registers div.firstColor div.inclusionDate p,
+  #search-page div.table div.registers div.firstColor div.backOffice p {
+    margin: 15px 30px;
+  }
+  
