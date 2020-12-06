@@ -15,9 +15,12 @@ export async function up(knex: Knex) {
     table.string('mes')
     table.string('razao_social')
     table.string('telefone')
+    table.string('promotor_prisma')
     table.string('supervisao_prisma')
     table.string('coordenador_prisma')
     table.string('gerente_prisma')
+    table.string('observacoes')
+    table.string('opcoes')
   });
 };
 

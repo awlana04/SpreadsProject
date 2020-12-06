@@ -11,6 +11,8 @@ const fileController = new FileController()
 const concludeController = new ConcludeController()
 
 routes.get('/conclude', concludeController.index);
+routes.get('/conclude/:id', concludeController.show);
+routes.put('/conclude/:id', concludeController.update);
 routes.post('/upload', upload.single("conclude"), fileController.create);
 
 export default routes;
