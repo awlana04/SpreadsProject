@@ -7,7 +7,7 @@ function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={Search} />
+        <Route path="/" exact component={Search} />
       </Switch>
     </BrowserRouter>
   )
