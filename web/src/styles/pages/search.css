@@ -1,128 +1,49 @@
-#search-page {
-  margin: 10px;
-}
+#pageContainer {
+  padding: 20px 15px;
 
-#search-page img.logo {
-  width: 115px;
-}
-
-#search-page div.inputs {
-  margin-top: 5px;
-  margin-bottom: 15px;
-  margin-left: -225px;
-
-  font-size: 26px;
-  color: #000;
-  
   display: flex;
   flex-direction: column;
-  align-items: center;
+
+  justify-content: flex-start;
 }
 
-#search-page div.inputs select {
+#pageContainer div.formContainer div.selectBoxContainer {
+  padding: 10px;
+}
+
+#pageContainer div.formContainer div.selectBoxContainer select.selectBox {
   width: 100%;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-#search-page div.inputs div.input label {
-  margin-left: 150px;
-}
-
-#search-page div.inputs div.input select, input {
-  width: 250px;
-  height: 50px;
-  margin-top: 10px;
-  margin-left: 150px;
-
-  flex: 1;
+  max-width: 400px;
+  height: 30px;
   
-  background: #E8E8E8;
-  border: 0;
-
-  border-radius: 25px;
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
-  background: #E8E8E8 url('../../images/vector.svg') 93.0% 50% no-repeat;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: #ee5928;
+  
+  background-color: #fff;
+  color: #000;
 }
 
-#search-page div.inputs div.button button {
+#pageContainer div.formContainer div.buttonContainer {
+  padding: 10px;
+  margin: 5px 0 25px 0;
+}
+
+#pageContainer div.formContainer div.buttonContainer button.formButton {
   width: 100px;
-  height: 45px;
+  height: 35px;
+
+  cursor: pointer;
+  background-color: #ee5928;
+  border-radius: 15px;
+  border-width: 0;
   
-  position: absolute;
-  margin-top: 20px;
-  margin-left: 20px;
-  
-  flex: 1;
-  
-  font-size: 20px;
-  color: #FFFFFF;
-  background: #F56D20;
-  border: 0;
-  
-  border-radius: 25px;
-  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+  color: #fff;
+
+  transition: 2s;
 }
 
-#search-page div.search img.blackLine {
-  width: 90%;
-  margin-top: 65px;
-}
-
-/* Desktop version */
-@media(min-width: 768px) {
-  #search-page {
-    margin: 50px;
-  }
-
-  #search-page img.logo {
-    width: 200px;
-  }
-  
-  #search-page div.inputs {
-    margin-top: 25px;
-    margin-left: 0px;
-
-    flex-direction: row;
-  }
-
-  #search-page div.inputs div.input label {
-    margin-left: 0;
-  }
-  
-  #search-page div.inputs div.input select, input {
-    width: 460px;
-    height: 70px;
-    margin-top: 5px;
-    margin-left: 0;
-  }
-  
-  #search-page div.inputs div.input div.districtAttorneySelection {
-    position: absolute;
-    margin-top: -55px;
-    padding-left: 75px;
-  }
-  
-  #search-page div.inputs div.button button {
-    width: 150px;
-    height: 70px;
-    margin-top: -10px;
-    margin-left: 675px;
-
-    cursor: pointer;
-    font-size: 26px;
-
-    transition: 0.5s;
-  }
-
-  #search-page div.inputs div.button button:hover {
-    background: #FF8B03;
-  }
-
-  #search-page div.search img.blackLine {
-    width: 1300px;
-    margin-top: 0;
-  }
+#pageContainer div.formContainer div.buttonContainer button.formButton:hover {
+  background-color: #FF8B03;
 }
