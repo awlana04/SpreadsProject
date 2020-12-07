@@ -58,13 +58,14 @@
 }
 
 /* Registers */
-#search-page div.table div.registers div.firstColor:first-child {
+#search-page div.table div.registers div.firstColor {
   width: 225px;
   height: 300px;
   position: absolute;
   margin: 425px -55px;
 
   font-size: 26px;
+  color: #000;
   background: #F56D20;
   box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
     
@@ -140,21 +141,18 @@
   }
   
   /* Registers */
-  #search-page div.table div.registers div.firstColor:first-child {
+  #search-page div.table div.registers div.firstColor {
     width: 1145px;
     height: 70px;
     margin: 200px -410px;
   
     cursor: pointer;
-  
     font-size: 26px;
+    
+    display: flex;
     flex-direction: row;
   
     transition: 2s;
-  }
-  
-  #search-page div.table div.registers div.firstColor {
-    margin: auto -410px;
   }
   
   #search-page div.table div.registers div.firstColor:hover {
@@ -163,7 +161,7 @@
   }
   
   #search-page div.table div.registers div.firstColor div.socialReason {
-    margin-left: 15px;
+    margin-left: 5px;
   }
   
   #search-page div.table div.registers div.firstColor div.inclusionDate img {
@@ -180,7 +178,7 @@
       flex-direction: row;
     }
   
-    #search-page div.table div.registers div.firstColor div.socialReason p,
+  #search-page div.table div.registers div.firstColor div.socialReason p,
     #search-page div.table div.registers div.firstColor div.uf p, 
     #search-page div.table div.registers div.firstColor div.phoneNumber p, 
     #search-page div.table div.registers div.firstColor div.personType p,
@@ -189,11 +187,11 @@
       margin: 15px 30px;
     }
     
-    #search-page div.table div.registers div.firstColor div.socialReason img,
-  #search-page div.table div.registers div.firstColor div.uf img, 
-  #search-page div.table div.registers div.firstColor div.phoneNumber img, 
-  #search-page div.table div.registers div.firstColor div.personType img,
-  #search-page div.table div.registers div.firstColor div.backOffice img {
-    margin-left: 0px;
-  }
+  #search-page div.table div.registers div.firstColor div.socialReason img,
+    #search-page div.table div.registers div.firstColor div.uf img, 
+    #search-page div.table div.registers div.firstColor div.phoneNumber img, 
+    #search-page div.table div.registers div.firstColor div.personType img,
+    #search-page div.table div.registers div.firstColor div.backOffice img {
+      margin-left: 0px;
+    }
 }
