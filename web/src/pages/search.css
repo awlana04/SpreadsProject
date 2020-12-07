@@ -1,0 +1,105 @@
+#pageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px 15px;
+}
+
+.selectBoxContainer {
+  padding: 10px;
+}
+
+.selectBox {
+  width: 100%;
+  max-width: 400px;
+  height: 30px;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: #ee5928;
+  background-color: #fff;
+  color: #000;
+}
+
+.buttonContainer {
+  padding: 10px;
+  margin: 5px 0 25px 0;
+}
+
+.formButton {
+  width: 100px;
+  height: 35px;
+  border-radius: 15px;
+  border-width: 0;
+  background-color: #ee5928;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* inspired by: https://css-tricks.com/responsive-data-tables/ */
+.responsiveTable {
+  width: 100%;
+  font-size: 14px;
+  color: #111;
+}
+
+.responsiveTable td .tdBefore {
+  display: none;
+}
+
+@media screen and (max-width: 40em) {
+  /*
+    Force table elements to not behave like tables anymore
+    Hide table headers (but not display: none;, for accessibility)
+  */
+
+  .responsiveTable table,
+  .responsiveTable thead,
+  .responsiveTable tbody,
+  .responsiveTable th,
+  .responsiveTable td,
+  .responsiveTable tr {
+    display: block;
+  }
+
+  .responsiveTable thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    border-bottom: 2px solid #333;
+  }
+
+  .responsiveTable tbody tr {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: .60em .25em;
+  }
+
+  .responsiveTable td.pivoted {
+    /* Behave like a "row" */
+    border: none !important;
+    position: relative;
+    padding-left: calc(50% + 10px) !important;
+    text-align: left !important;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    color: #111;
+    font-size: 13px;
+  }
+
+  .responsiveTable td .tdBefore {
+    /* Now like a table header */
+    position: absolute;
+    display: block;
+
+    /* Top/left values mimic padding */
+    left: 1rem;
+    width: calc(50% - 20px);
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    text-align: left !important;
+    font-weight: 600;
+    color: #444;
+  }
+}

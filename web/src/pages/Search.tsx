@@ -1,16 +1,16 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import $ from 'jquery';
+
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+// import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 import api from '../services/api';
 
-import Logo from '../images/logo.svg';
-import Line from '../images/line.svg';
-import Line2 from '../images/line_2.svg';
+// import Logo from '../images/logo.svg';
 
-import '../styles/pages/search.css';
+import './search.css';
 
-interface datas {
+interface data {
   id: number;
   razao_social: string;
   uf: string;
@@ -23,184 +23,126 @@ interface datas {
 };
 
 function Search() {
-  const [data, setData] = useState<datas[]>([]);
-  const [superviser, setSuperviser] = useState<string[]>([]);
-  const [districtAttorney, setDistrictAttorney] = useState<string[]>([]);
-
-  const [superviserSelected, setSuperviserSelected] = useState('0');
-  const [districtAttorneySelected, setDistrictAttorneySelected] = useState('0');
+  const [data, setData] = useState<data[]>([]);
+  const [pageList, setPageList] = useState<string[]>([])
+  const [supervisors, setSupervisors] = useState<string[]>([]);
+  const [supervisorSelected, setSupervisorSelected] = useState('');
+  const [promoters, setPromoters] = useState<string[]>([]);
+  const [promoterSelected, setPromoterSelected] = useState('');
 
   useEffect(() => {
-    api.get('conclude').then(response => {
-      setData(response.data)
+    api.get('conclude?perpage=30&page=1').then(response => {
+      setData(response.data.data)
+      console.log(response.data.pagination)
+    })
+
+    api.get('supervisor').then(response => {
+      const supervisorList = response.data.map((supervisor: any) =>
+        supervisor.supervisao_prisma);
+
+      setSupervisors(supervisorList);
     });
+
+    api.get('promoter').then(response => {
+      const promotersList = response.data.map((promoter: any) =>
+        promoter.promotor_prisma);
+
+      setPromoters(promotersList);
+    });
+
   }, []);
-  
-  useEffect(()=> {
-    api.get(`promoter?supervisor=${superviserSelected}`).then(response => {
-      const superviserList = response.data.map((superviser: any) => 
-        superviser.supervisao_prisma);
-  
-      setDistrictAttorney(superviserList);
-    });
-  }, [superviserSelected])
 
-  useEffect(()=> {
-    api.get(`supervisor?promotor=${districtAttorneySelected}`).then(response => {
-      const districtAttorneyList = response.data.map((districtAttorney: any) => 
-      districtAttorney.promotor_prisma);
+  function handleSuperviserOrPromoterOption(event: ChangeEvent<HTMLSelectElement>) {
+    const supervisorOption = event.target.value;
+    const promoterOption = event.target.value;
 
-      setSuperviser(districtAttorneyList);
-    });
-  }, [districtAttorneySelected]);
-
-  function handleSuperviserOrDistrictAttorneyOption(event: ChangeEvent<HTMLSelectElement>) {
-    const superviserOption = event.target.value;
-    const districtAttorneyOption = event.target.value;
-
-    setSuperviserSelected(superviserOption);
-    setDistrictAttorneySelected(districtAttorneyOption);
+    setSupervisorSelected(supervisorOption);
+    setPromoterSelected(promoterOption);
   }
-  
+
   function handleSubmit() {
-    api.get(`conclude?supervisor=${superviserSelected}&promotor=${districtAttorneySelected}`)
+    api.get(`conclude?supervisor=${supervisorSelected}&promotor=${promoterSelected}`)
       .then(response => {
-        setData(response.data)
-      }); 
+        setData(response.data.data)
+      });
   }
 
-  // $(function () {
-  //   $('div.table').hide();
-
-  //   $('button').on("click", function () {
-  //     $(this).siblings('div.table').slideDown('slow');
-  //   });
-  // });
+  //console.log(data)
 
   return (
-    < div id="search-page" >
-      <img src={Logo} alt="Logo" className="logo" />
+    <div id="pageContainer">
+      {/* <img src={Logo} alt="Logo" className="logo" /> */}
 
-      <div className="search">
-        <div className="inputs">
-          <div className="input">
-            <div className="superviserSelection">
-              <label htmlFor="superviser">Supervisor</label><br />
+      <div className="formContainer">
 
-              <select className="superviser" onChange={handleSuperviserOrDistrictAttorneyOption}>
-                <option value="0"></option>
-
-                {superviser.map((supervisers) => (
-                  <option
-                    key={supervisers}
-                    value={supervisers}>{supervisers}
-                  </option>
-                ))}
-
-                <input type="hidden" name="superviser" />
-              </select>
-            </div>
-          </div>
-
-          <div className="input">
-            <div className="districtAttorneySelection">
-              <label htmlFor="districtAttorney">Promotor</label><br />
-
-              <select className="districtAttorney" onChange={handleSuperviserOrDistrictAttorneyOption}>
-                <option value="0"></option>
-
-                {districtAttorney.map(districtAttorneys => {
-                  return (
-                    <option
-                      key={districtAttorneys}
-                      value={districtAttorneys}>{districtAttorneys}
-                    </option>
-                  )
-                })}
-
-                <input type="hidden" name="districtAttorney" />
-              </select>
-            </div>
-          </div>
-
-          <div className="button">
-            <button onClick={handleSubmit}>Buscar</button>
-
-
-            <div className="table">
-              <div className="text">
-                <div className="textOne">
-                  <h3>Razão social</h3>
-                </div>
-
-                <div className="textTwo">
-                  <h3>UF</h3>
-                </div>
-
-                <div className="textThree">
-                  <h3>Telefone</h3>
-                </div>
-
-                <div className="textFour">
-                  <h3>Tipo de Pessoa</h3>
-                </div>
-
-                <div className="textFive">
-                  <h3>Data de Inclusão</h3>
-                </div>
-
-                <div className="textSix">
-                  <h3>BackOffice</h3>
-                </div>
-              </div>
-
-              <div className="registers">
-
-                {data.map((datas) => (
-                  <Link to={`/results/${datas.id}`}>
-                  <div className="firstColor" key={datas.id}>
-                    <div className="socialReason">
-                      <p>{datas.razao_social}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
-                    </div>
-
-                    <div className="uf">
-                      <p>{datas.uf}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
-                    </div>
-
-                    <div className="phoneNumber">
-                      <p>{datas.telefone}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
-                    </div>
-
-                    <div className="personType">
-                      <p>{datas.tipo_de_pessoa}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
-                    </div>
-
-                    <div className="inclusionDate">
-                      <p>{datas.data_inclusao}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
-                    </div>
-
-                    <div className="backOffice">
-                      <p>{datas.status_backoffice}</p>
-                    </div>
-
-                  </div>
-                  </Link>
-                  ))}
-              </div>
-
-            </div>
-          </div>
+        <div className="selectBoxContainer">
+          <label htmlFor="superviser">Supervisor</label><br />
+          <select className="selectBox" onChange={handleSuperviserOrPromoterOption}>
+            <option value="">Selecione o Supervisor</option>
+            {supervisors.map((supervisor: any) => (
+              <option
+                key={supervisor}
+                value={supervisor}>{supervisor}
+              </option>
+            ))}
+          </select>
         </div>
 
-        <img src={Line} alt="Line" className="blackLine" />
+        <div className="selectBoxContainer">
+          <label htmlFor="districtAttorney">Promotor</label><br />
+          <select className="selectBox" onChange={handleSuperviserOrPromoterOption}>
+            <option value="">Selecione o Promotor</option>
+            {promoters.map(promoter => (
+              <option
+                key={promoter}
+                value={promoter}>{promoter}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="buttonContainer">
+          <button className="formButton" onClick={handleSubmit}>Buscar</button>
+          <select className="selectBoxPage" onChange={handleSuperviserOrPromoterOption}>
+            {promoters.map(promoter => (
+              <option
+                key={promoter}
+                value={promoter}>{promoter}
+              </option>
+            ))}
+          </select>
+        </div>
 
       </div>
-    </div >
+      <div className="tableContainer">
+        <Table className="table">
+          <Thead>
+            <Tr>
+              <Th>Razão social</Th>
+              <Th>UF</Th>
+              <Th>Telefone</Th>
+              <Th>Tipo de Pessoa</Th>
+              <Th>Data de Inclusão</Th>
+              <Th>Status BackOffice</Th>
+              <Th>Supervisor</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data.map(item => (
+              <Tr key={item.id}>
+                <Td>{item.razao_social}</Td>
+                <Td>{item.uf}</Td>
+                <Td>{item.telefone}</Td>
+                <Td>{item.tipo_de_pessoa}</Td>
+                <Td>{item.data_inclusao}</Td>
+                <Td>{item.status_backoffice}</Td>
+                <Td>{item.supervisao_prisma}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </div>
+    </div>
   )
 };
 
