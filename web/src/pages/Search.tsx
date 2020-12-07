@@ -41,7 +41,7 @@ function Search() {
       const superviserList = response.data.map((superviser: any) => 
         superviser.supervisao_prisma);
   
-      setDistrictAttorney(superviserList);
+        setSuperviser(superviserList);
     });
   }, [superviserSelected])
 
@@ -50,7 +50,7 @@ function Search() {
       const districtAttorneyList = response.data.map((districtAttorney: any) => 
       districtAttorney.promotor_prisma);
 
-      setSuperviser(districtAttorneyList);
+      setDistrictAttorney(districtAttorneyList);
     });
   }, [districtAttorneySelected]);
 
@@ -60,14 +60,12 @@ function Search() {
 
     setSuperviserSelected(superviserOption);
     setDistrictAttorneySelected(districtAttorneyOption);
-  }
+  };
   
   function handleSubmit() {
     api.get(`conclude?supervisor=${superviserSelected}&promotor=${districtAttorneySelected}`)
-      .then(response => {
-        setData(response.data)
-      }); 
-  }
+      .then(response => setData(response.data)); 
+  };
 
   // $(function () {
   //   $('div.table').hide();
@@ -157,38 +155,39 @@ function Search() {
               <div className="registers">
 
                 {data.map((datas) => (
-                  <Link to={`/results/${datas.id}`}>
-                  <div className="firstColor" key={datas.id}>
-                    <div className="socialReason">
-                      <p>{datas.razao_social}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
+                  <Link to={`/result/${datas.id}`}>
+
+                    <div className="firstColor" key={datas.id}>
+                      <div className="socialReason">
+                        <p>{datas.razao_social}</p>
+                        <img src={Line2} alt="A white line to separete the informations" />
+                      </div>
+
+                      <div className="uf">
+                        <p>{datas.uf}</p>
+                        <img src={Line2} alt="A white line to separete the informations" />
+                      </div>
+
+                      <div className="phoneNumber">
+                        <p>{datas.telefone}</p>
+                        <img src={Line2} alt="A white line to separete the informations" />
+                      </div>
+
+                      <div className="personType">
+                        <p>{datas.tipo_de_pessoa}</p>
+                        <img src={Line2} alt="A white line to separete the informations" />
+                      </div>
+
+                      <div className="inclusionDate">
+                        <p>{datas.data_inclusao}</p>
+                        <img src={Line2} alt="A white line to separete the informations" />
+                      </div>
+
+                      <div className="backOffice">
+                        <p>{datas.status_backoffice}</p>
+                      </div>
                     </div>
 
-                    <div className="uf">
-                      <p>{datas.uf}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
-                    </div>
-
-                    <div className="phoneNumber">
-                      <p>{datas.telefone}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
-                    </div>
-
-                    <div className="personType">
-                      <p>{datas.tipo_de_pessoa}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
-                    </div>
-
-                    <div className="inclusionDate">
-                      <p>{datas.data_inclusao}</p>
-                      <img src={Line2} alt="A white line to separete the informations" />
-                    </div>
-
-                    <div className="backOffice">
-                      <p>{datas.status_backoffice}</p>
-                    </div>
-
-                  </div>
                   </Link>
                   ))}
               </div>
