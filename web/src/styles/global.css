@@ -22,65 +22,49 @@ h1, h2, h3, h4, h5, h6 {
 /* Table */
 
 /* inspired by: https://css-tricks.com/responsive-data-tables/ */
-/* #pageContainer div.tableContainer table.responsiveTable {
-  width: 50%;
-  
+.responsiveTable {
+  width: 100%;
   font-size: 14px;
-  color: black;
-} */
-
-/* #pageContainer div.tableContainer table.responsiveTable th td  {
-  display: none;
-} */
-
-/* Desktop version */
-@media(min-width: 768px) {
-  #pageContainer div.tableContainer table.responsiveTable {
-    width: 50%;
-    
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-  }
-  
-  #pageContainer div.tableContainer table.responsiveTable th td {
-    
-  }
-
-  #pageContainer div.tableContainer table.responsiveTable tr td {
-    width: 1400px;
-    margin-top: 25px;
-  }
-
+  color: #111;
 }
 
-/* @media screen and (max-width: 40em) {
-  
+.responsiveTable td .tdBefore {
+  display: none;
+}
+
+/* Desktop version */
+@media screen and (max-width: 40em) {
+  /*
     Force table elements to not behave like tables anymore
     Hide table headers (but not display: none;, for accessibility)
-  
+  */
 
   .responsiveTable table,
+  .responsiveTable thead,
+  .responsiveTable tbody,
   .responsiveTable th,
   .responsiveTable td,
   .responsiveTable tr {
     display: block;
   }
 
-  table.responsiveTable th {
-    width: 50px;
+  .responsiveTable thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    border-bottom: 2px solid #333;
   }
 
-  .responsiveTable tr {
+  .responsiveTable tbody tr {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 10px;
     margin-bottom: 5px;
     padding: .60em .25em;
-  } 
+  }
 
- .responsiveTable td.pivoted {
-     Behave like a "row" 
+  .responsiveTable td.pivoted {
+    /* Behave like a "row" */
     border: none !important;
     position: relative;
     padding-left: calc(50% + 10px) !important;
@@ -92,11 +76,11 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .responsiveTable td .tdBefore {
-     Now like a table header 
+    /* Now like a table header */
     position: absolute;
     display: block;
 
-     Top/left values mimic padding 
+    /* Top/left values mimic padding */
     left: 1rem;
     width: calc(50% - 20px);
     white-space: pre-wrap;
@@ -104,6 +88,5 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left !important;
     font-weight: 600;
     color: #444;
-  } 
+  }
 }
-*/

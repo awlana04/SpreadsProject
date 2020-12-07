@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-// import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 
 import api from '../services/api';
 
@@ -100,31 +100,33 @@ function Search() {
       </div>
 
       <div className="tableContainer">
-        <table className="responsiveTable">
-          <th>
-            <td>Razão Social</td>
-            <td>UF</td>
-            <td>Telefone</td>
-            <td>Tipo de Pessoa</td>
-            <td>Data de Inclusão</td>
-            <td>Status BackOffice</td>
-            <td>Supervisor</td>
-          </th>
-
-          {data.map(datas => (
-            <Link to={`/result/${datas.id}`} className="results">
-              <tr key={datas.id}>
-                <td>{datas.razao_social}</td>
-                <td>{datas.uf}</td>
-                <td>{datas.telefone}</td>
-                <td>{datas.tipo_de_pessoa}</td>
-                <td>{datas.data_inclusao}</td>
-                <td>{datas.status_backoffice}</td>
-                <td>{datas.supervisao_prisma}</td>
-              </tr>
-            </Link>
-          ))}
-        </table>
+        <Table className="table">
+          <Thead>
+            <Tr>
+              <Th>Razão social</Th>
+              <Th>UF</Th>
+              <Th>Telefone</Th>
+              <Th>Tipo de Pessoa</Th>
+              <Th>Data de Inclusão</Th>
+              <Th>Status BackOffice</Th>
+              <Th>Supervisor</Th>
+            </Tr>
+          </Thead>
+          
+          <Tbody>
+            {data.map(item => (
+              <Tr key={item.id}>
+                <Td>{item.razao_social}</Td>
+                <Td>{item.uf}</Td>
+                <Td>{item.telefone}</Td>
+                <Td>{item.tipo_de_pessoa}</Td>
+                <Td>{item.data_inclusao}</Td>
+                <Td>{item.status_backoffice}</Td>
+                <Td>{item.supervisao_prisma}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
       </div>
     </div>
   )
