@@ -125,26 +125,4 @@
     width: 1300px;
     margin-top: 0;
   }
-
-<<<<<<< HEAD
-  /* .tableRow {
-=======
-  .tableRow {
->>>>>>> 7f2441a7dc441c640c280899ad446d4692a950ad
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .tableCel {
-    color: black;
-  }
-
-  .razao_social {
-    width: 200px;
-<<<<<<< HEAD
-  } */
-=======
-  }
->>>>>>> 7f2441a7dc441c640c280899ad446d4692a950ad
 }
