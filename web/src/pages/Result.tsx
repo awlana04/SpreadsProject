@@ -4,7 +4,10 @@ import { useParams } from 'react-router-dom';
 
 import api from '../services/api';
 
+import '../styles/pages/result.css'
+
 interface data {
+  id: number,
   razao_social: string;
   uf: string;
   telefone: number;
@@ -20,15 +23,15 @@ interface dataParams {
 };
 
 function Result() {
-  const params = useParams<dataParams>();
+  const { id } = useParams<dataParams>();
 
   const [data, setData] = useState<data[]>([]);
-  
+
   useEffect(() => {
-    api.get(`conclude/${params.id}`).then(response => {
+    api.get(`conclude/${id}`).then(response => {
       setData(response.data);
     });
-  }, [params.id]);
+  }, [id]);
 
   return (
     <div id="pageContainer">
@@ -46,19 +49,35 @@ function Result() {
               <Th>Supervisor</Th>
             </Tr>
           </Thead>
-          
-          {/* <Tbody>
-            <Tr key={data.id}>
-                <Td>{data.razao_social}</Td>
-                <Td>{data.uf}</Td>
-                <Td>{data.telefone}</Td>
-                <Td>{data.tipo_de_pessoa}</Td>
-                <Td>{data.data_inclusao}</Td>
-                <Td>{data.status_backoffice}</Td>
-                <Td>{data.supervisao_prisma}</Td>
+
+          <Tbody>
+            {data.map(item => (
+              <Tr key={item.id}>
+                <Td>{item.razao_social}</Td>
+                <Td>{item.uf}</Td>
+                <Td>{item.telefone}</Td>
+                <Td>{item.tipo_de_pessoa}</Td>
+                <Td>{item.data_inclusao}</Td>
+                <Td>{item.status_backoffice}</Td>
+                <Td>{item.supervisao_prisma}</Td>
               </Tr>
-          </Tbody> */}
+            ))}
+          </Tbody>
         </Table>
+        
+        <div className="updateContainer">
+          <input type="text" placeholder="DIGITE O NOME DO PROMOTOR" className="textInput" />
+          <textarea className="textArea" placeholder="OBSERVAÇÕES" />
+          
+          <select className="selectBox" placeholder="STATUS" onChange={() => { }}>
+            <option value=""></option>
+            <option value="CLIENTE DESISTIU">CLIENTE DESISTIU</option>
+            <option value="CLIENTE RECEBEU A MAQUINA">CLIENTE RECEBEU A MAQUINA</option>
+            <option value="CLIENTE SEM INTERESSE">CLIENTE SEM INTERESSE</option>
+            <option value="INSUCESSO NA TENTATIVA DE CONTATO">INSUCESSO NA TENTATIVA DE CONTATO</option>
+            <option value="VENDA CONCLUIDA COM SUCESSO">VENDA CONCLUIDA COM SUCESSO</option>
+          </select>
+        </div>
       </div>
     </div>
   )

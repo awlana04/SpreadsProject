@@ -41,9 +41,40 @@
   font-weight: bold;
   color: #fff;
 
-  transition: 2s;
+  transition: 1s;
 }
 
 #pageContainer div.formContainer div.buttonContainer button.formButton:hover {
   background-color: #FF8B03;
 }
+
+/* Pagination */
+#pageContainer div.pagination {
+  margin-top: 25px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#pageContainer div.pagination button,
+  #pageContainer div.pagination div.numbers div {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    margin: 2.5px;
+
+    cursor: pointer;
+    text-align: center;
+    background: #ee5928;
+    color: #FFF;
+    border: 0;
+    border-radius: 25px;
+
+    transition: 1s;
+  }
+
+#pageContainer div.pagination button:hover,
+  #pageContainer div.pagination div.numbers div:hover {
+    background: #FF8B03;
+  }

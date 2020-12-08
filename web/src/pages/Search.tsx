@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+// import $ from 'jquery';
 
 import api from '../services/api';
 
@@ -62,6 +62,71 @@ function Search() {
     });
   };
 
+  const history = useHistory();
+
+  function handleClick(id: any) {
+    history.push(`/result/${id}`);
+  };
+
+  // Pagination
+  const totalPagesList = data.map(datas => datas.id);
+
+  const html = {
+    get(element: any) {
+      return document.querySelector(element);
+    }
+  };
+
+  const state = {
+    page: 1,
+    perPage: 15,
+    totalPages: totalPagesList.length / 15,
+  };
+
+  const controls = {
+    next() {
+      state.page++
+
+      if (state.page > state.totalPages) {
+        state.page--
+      };
+    },
+
+    prev() {
+      state.page--
+
+      if (state.page < 1) {
+        state.page++
+      };
+    },
+
+    createListeners() {
+      html.get('.next').addEventListener('click', () => {
+        controls.next();
+        update();
+      });
+
+      html.get('.prev').addEventListener('click', () => {
+        controls.prev();
+        update();
+      });
+    },
+  };
+
+  controls.createListeners();
+
+  function update() {
+    console.log(state.page);
+  };
+
+  // $(function() {
+  //   $('#pageContainer .tableContainer').hide();
+
+  //   $('#pageContainer .formContainer .buttonContainer .formButton').on('click', function() {
+  //     $('#pageContainer .tableContainer').slideDown('fast');
+  //   });
+  // });
+
   return (
     <div id="pageContainer">
       <div className="formContainer">
@@ -115,7 +180,7 @@ function Search() {
           
           <Tbody>
             {data.map(item => (
-              <Tr key={item.id}>
+              <Tr key={item.id} onClick={() => handleClick(item.id)}>
                 <Td>{item.razao_social}</Td>
                 <Td>{item.uf}</Td>
                 <Td>{item.telefone}</Td>
@@ -127,6 +192,16 @@ function Search() {
             ))}
           </Tbody>
         </Table>
+      </div>
+
+      <div className="pagination">
+        <button className="prev">&lt;</button>
+        
+        <div className="numbers">
+          <div>1</div>
+        </div>
+        
+        <button className="next">&gt;</button>
       </div>
     </div>
   )
