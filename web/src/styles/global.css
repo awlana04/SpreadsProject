@@ -24,8 +24,18 @@ h1, h2, h3, h4, h5, h6 {
 /* inspired by: https://css-tricks.com/responsive-data-tables/ */
 .responsiveTable {
   width: 100%;
+  padding: 0 20px;
+  background-color: #fff;
+  border-radius: 20px;
   font-size: 14px;
-  color: #111;
+  color: #222;
+}
+
+.responsiveTable td {
+  height: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0 10px;
 }
 
 .responsiveTable td .tdBefore {
@@ -38,6 +48,11 @@ h1, h2, h3, h4, h5, h6 {
     Force table elements to not behave like tables anymore
     Hide table headers (but not display: none;, for accessibility)
   */
+  .responsiveTable {
+    background-color: transparent;
+    width: 100%;
+    
+  }
 
   .responsiveTable table,
   .responsiveTable thead,
@@ -46,6 +61,7 @@ h1, h2, h3, h4, h5, h6 {
   .responsiveTable td,
   .responsiveTable tr {
     display: block;
+    width: 100%;
   }
 
   .responsiveTable thead tr {
@@ -56,11 +72,16 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .responsiveTable tbody tr {
+    width: 100%;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 10px;
     margin-bottom: 5px;
     padding: .60em .25em;
+  }
+
+  .responsiveTable td {
+    height: auto;
   }
 
   .responsiveTable td.pivoted {

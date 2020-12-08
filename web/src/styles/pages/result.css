@@ -1,0 +1,46 @@
+#pageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.updateContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.textInput {
+  width: 100%;
+  height: 32px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  padding: 0 2px 0 8px;
+  margin-bottom: 10px;
+
+}
+
+.textArea {
+  width: 100%;
+  height: 60px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  padding: 8px 2px 0 8px;
+  margin-bottom: 10px;
+}
+
+.selectBox {
+  width: 100%;
+  height: 32px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  padding: 0px 2px 0 8px;
+  background-color: #fff;
+}

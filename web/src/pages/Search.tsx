@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 
@@ -62,37 +62,36 @@ function Search() {
     });
   };
 
+  const history = useHistory();
+
+  function handleClick(id: any) {
+    history.push(`/result/${id}`);
+  }
+
   return (
     <div id="pageContainer">
       <div className="formContainer">
 
-        <div className="selectBoxContainer">
-          <label htmlFor="superviser">Supervisor</label><br />
-          <select className="selectBox" onChange={handleSuperviserOrPromoterOption}>
-            <option value="">Selecione o Supervisor</option>
-            
-            {supervisors.map(supervisor => (
-              <option
-                key={supervisor}
-                value={supervisor}>{supervisor}
-              </option>
-            ))}
-          </select>
-        </div>
+        <select className="selectBox" onChange={handleSuperviserOrPromoterOption}>
+          <option value="">SELECIONE O SUPERVISOR</option>
+          {supervisors.map(supervisor => (
+            <option
+              key={supervisor}
+              value={supervisor}>{supervisor}
+            </option>
+          ))}
+        </select>
 
-        <div className="selectBoxContainer">
-          <label htmlFor="districtAttorney">Promotor</label><br />
-          <select className="selectBox" onChange={handleSuperviserOrPromoterOption}>
-            <option value="">Selecione o Promotor</option>
-            
-            {promoters.map(promoter => (
-              <option
-                key={promoter}
-                value={promoter}>{promoter}
-              </option>
-            ))}
-          </select>
-        </div>
+        <select className="selectBox" onChange={handleSuperviserOrPromoterOption}>
+          <option value="">SELECIONE O PROMOTOR</option>
+
+          {promoters.map(promoter => (
+            <option
+              key={promoter}
+              value={promoter}>{promoter}
+            </option>
+          ))}
+        </select>
 
         <div className="buttonContainer">
           <button className="formButton" onClick={handleSubmit}>Buscar</button>
@@ -112,10 +111,10 @@ function Search() {
               <Th>Supervisor</Th>
             </Tr>
           </Thead>
-          
+
           <Tbody>
             {data.map(item => (
-              <Tr key={item.id}>
+              <Tr key={item.id} onClick={() => handleClick(item.id)}>
                 <Td>{item.razao_social}</Td>
                 <Td>{item.uf}</Td>
                 <Td>{item.telefone}</Td>

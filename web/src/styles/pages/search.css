@@ -1,49 +1,45 @@
 #pageContainer {
-  padding: 20px 15px;
-
   display: flex;
   flex-direction: column;
-
-  justify-content: flex-start;
-}
-
-#pageContainer div.formContainer div.selectBoxContainer {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   padding: 10px;
 }
 
-#pageContainer div.formContainer div.selectBoxContainer select.selectBox {
+.formContainer {
   width: 100%;
   max-width: 400px;
-  height: 30px;
-  
-  border-width: 2px;
-  border-radius: 10px;
-  border-color: #ee5928;
-  
-  background-color: #fff;
-  color: #000;
+  padding: 20px;
 }
 
-#pageContainer div.formContainer div.buttonContainer {
-  padding: 10px;
-  margin: 5px 0 25px 0;
+.selectBox {
+  width: 100%;
+  margin-bottom: 15px;
 }
 
-#pageContainer div.formContainer div.buttonContainer button.formButton {
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.formButton {
   width: 100px;
   height: 35px;
-
   cursor: pointer;
   background-color: #ee5928;
-  border-radius: 15px;
+  border-radius: 10px;
   border-width: 0;
-  
   font-weight: bold;
   color: #fff;
-
   transition: 2s;
 }
 
-#pageContainer div.formContainer div.buttonContainer button.formButton:hover {
+.formButton:hover {
   background-color: #FF8B03;
 }
+
+
