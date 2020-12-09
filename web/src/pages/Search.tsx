@@ -143,7 +143,6 @@ function Search() {
         </div>
 
         <div className="buttonContainer">
-          {/* <button className="formButton" onClick={()=>{})}>Buscar</button> */}
         </div>
       </div>
 
@@ -179,18 +178,18 @@ function Search() {
           <Tbody>
             {data.map(item => (
               <Tr key={item.id} onClick={() => handleClick(item.id)}>
-                <Td>{item.id}</Td>
-                <Td>{item.razao_social}</Td>
-                <Td>{item.telefone}</Td>
-                <Td>{item.tipo_de_pessoa}</Td>
-                <Td>{item.data_inclusao}</Td>
-                <Td>{item.chave_cliente_eps}</Td>
-                <Td>{item.agnt}</Td>
-                <Td>{item.nm_indicado}</Td>
-                <Td>{item.gerente}</Td>
-                <Td>{item.uf}</Td>
-                <Td>{item.status_backoffice}</Td>
-                <Td>{item.supervisao_prisma}</Td>
+                <Td>{item.id ? item.id : 'NÃO INFORMADO'}</Td>
+                <Td>{item.razao_social ? item.razao_social : 'NÃO INFORMADO'}</Td>
+                <Td>{item.telefone ? item.telefone : 'NÃO INFORMADO'}</Td>
+                <Td>{item.tipo_de_pessoa ? item.tipo_de_pessoa : 'NÃO INFORMADO'}</Td>
+                <Td>{item.data_inclusao ? item.data_inclusao : 'NÃO INFORMADO'}</Td>
+                <Td>{item.chave_cliente_eps ? item.chave_cliente_eps : 'NÃO INFORMADO'}</Td>
+                <Td>{item.agnt ? item.agnt : 'NÃO INFORMADO'}</Td>
+                <Td>{item.nm_indicado ? item.nm_indicado : 'NÃO INFORMADO'}</Td>
+                <Td>{item.gerente ? item.gerente : 'NÃO INFORMADO'}</Td>
+                <Td>{item.uf ? item.uf : 'NÃO INFORMADO'}</Td>
+                <Td>{item.status_backoffice ? item.status_backoffice : 'NÃO INFORMADO'}</Td>
+                <Td>{item.supervisao_prisma ? item.supervisao_prisma : 'NÃO INFORMADO'}</Td>
                 <Td>{item.promotor_prisma ? item.promotor_prisma : <p className="empty">SEM ATRIBUIÇÃO</p>}</Td>
                 <Td>{item.opcoes ? item.opcoes : <p className="empty">SEM TRATATIVA</p>}</Td>
               </Tr>
