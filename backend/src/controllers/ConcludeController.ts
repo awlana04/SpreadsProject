@@ -30,23 +30,41 @@ class ConcludeController {
     const promotor: any = request.query.promotor
     const page: any = request.query.page
     const perpage: any = request.query.perpage
+    const status: any = request.query.status
 
-    if (supervisor || promotor) {
+    if (!supervisor && !promotor) {
+      const data = await knex('conclude')
+        .select('*')
+        .paginate({ isLengthAware: true, perPage: perpage, currentPage: page });
+
+      return response.json(data);
+    }
+    if (supervisor && !promotor) {
       const data = await knex('conclude')
         .select('*')
         .where('supervisao_prisma', supervisor)
-        .orWhere('promotor_prisma', promotor)
-        .paginate({ perPage: perpage, currentPage: page });
+        .paginate({ isLengthAware: true, perPage: perpage, currentPage: page });
 
       return response.json(data);
     }
-    else {
+    if (!supervisor && promotor) {
       const data = await knex('conclude')
         .select('*')
-        .paginate({ perPage: perpage, currentPage: page });
+        .where('promotor_prisma', promotor)
+        .paginate({ isLengthAware: true, perPage: perpage, currentPage: page });
 
       return response.json(data);
     }
+    if (supervisor && promotor) {
+      const data = await knex('conclude')
+        .select('*')
+        .where('supervisao_prisma', supervisor)
+        .andWhere('promotor_prisma', promotor)
+        .paginate({ isLengthAware: true, perPage: perpage, currentPage: page });
+
+      return response.json(data);
+    }
+
 
   }
 
