@@ -28,6 +28,13 @@ function Search() {
   const [data, setData] = useState<data[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
+<<<<<<< HEAD
+=======
+  const [supervisors, setSupervisors] = useState<string[]>([]);
+  const [supervisorChanged, setSupervisorChanged] = useState(false)
+  const [promoters, setPromoters] = useState<string[]>([]);
+  const [promoterChanged, setPromoterChanged] = useState(false)
+>>>>>>> 6dc74b09a96583ef1efefe22a880213046139144
 
   const [supervisors, setSupervisors] = useState<string[]>([]);
   const [supervisorChanged, setSupervisorChanged] = useState(false);
@@ -63,6 +70,7 @@ function Search() {
       setPromoters(promotersList);
     });
 
+<<<<<<< HEAD
     api.get('status').then(response => {
       const statusList = response.data.map((status: any) =>
       status.opcoes);
@@ -73,10 +81,15 @@ function Search() {
 
   useEffect(() => {
     api.get(`conclude?perpage=20&page=${currentPage}&supervisor=${supervisorSelected}&promotor=${promoterSelected}&status=${statusSelected}`).then(response => {
+=======
+  useEffect(() => {
+    api.get(`conclude?perpage=20&page=${currentPage}&supervisor=${supervisorSelected}&promotor=${promoterSelected}`).then(response => {
+>>>>>>> 6dc74b09a96583ef1efefe22a880213046139144
       setData(response.data.data)
       setCurrentPage(Number(response.data.pagination.currentPage))
       setLastPage(Number(response.data.pagination.lastPage))
     })
+<<<<<<< HEAD
 
     if (promoterChanged) {
       api.get(`supervisor?promotor=${promoterSelected}`).then(response => {
@@ -132,6 +145,42 @@ function Search() {
     setStatusChanged(true);
   };
 
+=======
+
+    if (promoterChanged) {
+      api.get(`supervisor?promotor=${promoterSelected}`).then(response => {
+        const supervisorList = response.data.map((supervisor: any) =>
+          supervisor.supervisao_prisma);
+
+        setSupervisors(supervisorList);
+      });
+      setPromoterChanged(false)
+    }
+
+    if (supervisorChanged) {
+      api.get(`promoter?supervisor=${supervisorSelected}`).then(response => {
+        const promotersList = response.data.map((promoter: any) =>
+          promoter.promotor_prisma);
+
+        setPromoters(promotersList);
+      });
+      setSupervisorChanged(false)
+    }
+  }, [currentPage, supervisorSelected, promoterSelected]);
+
+  function handleSupervisorOption(event: ChangeEvent<HTMLSelectElement>) {
+    const supervisorOption = event.target.value;
+    setSupervisorSelected(supervisorOption);
+    setSupervisorChanged(true)
+  };
+
+  function handlePromoterOption(event: ChangeEvent<HTMLSelectElement>) {
+    const promoterOption = event.target.value;
+    setPromoterSelected(promoterOption);
+    setPromoterChanged(true)
+  }
+
+>>>>>>> 6dc74b09a96583ef1efefe22a880213046139144
   const history = useHistory();
 
   function handleClick(id: any) {
@@ -190,7 +239,19 @@ function Search() {
         </div>
 
         <div className="buttonContainer">
+<<<<<<< HEAD
+=======
+          {/* <button className="formButton" onClick={()=>{})}>Buscar</button> */}
         </div>
+      </div>
+
+      <div className="pagination">
+        <button className="prev" onClick={handlePrevPage}><MdNavigateBefore size="24" /></button>
+        <div className="numbers">
+          <div>{currentPage}</div>
+>>>>>>> 6dc74b09a96583ef1efefe22a880213046139144
+        </div>
+        <button className="next" onClick={handleNextPage}><MdNavigateNext size="24" /></button>
       </div>
 
       <div className="pagination">
@@ -225,6 +286,7 @@ function Search() {
           <Tbody>
             {data.map(item => (
               <Tr key={item.id} onClick={() => handleClick(item.id)}>
+<<<<<<< HEAD
                 <Td>{item.id ? item.id : 'NÃO INFORMADO'}</Td>
                 <Td>{item.razao_social ? item.razao_social : 'NÃO INFORMADO'}</Td>
                 <Td>{item.telefone ? item.telefone : 'NÃO INFORMADO'}</Td>
@@ -237,6 +299,20 @@ function Search() {
                 <Td>{item.uf ? item.uf : 'NÃO INFORMADO'}</Td>
                 <Td>{item.status_backoffice ? item.status_backoffice : 'NÃO INFORMADO'}</Td>
                 <Td>{item.supervisao_prisma ? item.supervisao_prisma : 'NÃO INFORMADO'}</Td>
+=======
+                <Td>{item.id}</Td>
+                <Td>{item.razao_social}</Td>
+                <Td>{item.telefone}</Td>
+                <Td>{item.tipo_de_pessoa}</Td>
+                <Td>{item.data_inclusao}</Td>
+                <Td>{item.chave_cliente_eps}</Td>
+                <Td>{item.agnt}</Td>
+                <Td>{item.nm_indicado}</Td>
+                <Td>{item.gerente}</Td>
+                <Td>{item.uf}</Td>
+                <Td>{item.status_backoffice}</Td>
+                <Td>{item.supervisao_prisma}</Td>
+>>>>>>> 6dc74b09a96583ef1efefe22a880213046139144
                 <Td>{item.promotor_prisma ? item.promotor_prisma : <p className="empty">SEM ATRIBUIÇÃO</p>}</Td>
                 <Td>{item.opcoes ? item.opcoes : <p className="empty">SEM TRATATIVA</p>}</Td>
               </Tr>
