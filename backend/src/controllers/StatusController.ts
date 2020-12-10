@@ -16,7 +16,7 @@ class StatusController {
         .distinct('opcoes')
 
         return response.json(data);
-    } else if (!promotor && supervisor ) {
+    }  if (!promotor && supervisor ) {
       const data = await knex('conclude')
         .select('opcoes')
         .where('supervisao_prisma', supervisor)
@@ -25,14 +25,14 @@ class StatusController {
         .distinct('opcoes')
 
         return response.json(data);
-    } else if (promotor && !supervisor) {
+    }  if (promotor && !supervisor) {
       const data = await knex('conclude')
         .select('opcoes')
         .where('promotor_prisma', promotor)
         .orderBy('opcoes')
         .whereNotNull('opcoes')
         .distinct('opcoes')
-    } else if (promotor) {
+    }  if (promotor) {
       const data = await knex('conclude')
       .select('opcoes')
       .where('promotor_prisma', promotor)
