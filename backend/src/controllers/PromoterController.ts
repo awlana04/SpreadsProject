@@ -4,7 +4,6 @@ import knex from '../database/connection';
 class PromoterController {
   async index(request: Request, response: Response) {
     const supervisor: any = request.query.supervisor
-    const promotor: any = request.query.promotor
 
     if (supervisor) {
       const data = await knex('conclude')

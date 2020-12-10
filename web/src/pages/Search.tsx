@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-// import $ from 'jquery';
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 
 import api from '../services/api';
 
@@ -17,20 +17,36 @@ interface data {
   status_backoffice: string;
   supervisao_prisma: string;
   promotor_prisma: string;
+  chave_cliente_eps: number;
+  agnt: string;
+  nm_indicado: string;
+  opcoes: string;
+  gerente: string;
 };
 
 function Search() {
   const [data, setData] = useState<data[]>([]);
-  const [supervisors, setSupervisors] = useState<string[]>([]);
-  const [promoters, setPromoters] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [lastPage, setLastPage] = useState<number>(1)
 
+  const [supervisors, setSupervisors] = useState<string[]>([]);
+  const [supervisorChanged, setSupervisorChanged] = useState(false);
   const [supervisorSelected, setSupervisorSelected] = useState('');
+
+  const [promoters, setPromoters] = useState<string[]>([]);
+  const [promoterChanged, setPromoterChanged] = useState(false);
   const [promoterSelected, setPromoterSelected] = useState('');
 
+
+  const [status, setStatus] = useState<string[]>([]);
+  const [statusChanged, setStatusChanged] = useState(false);
+  const [statusSelected, setStatusSelected] = useState('');
+
   useEffect(() => {
-    api.get('conclude?perpage=30&page=1').then(response => {
+    api.get('conclude?perpage=20').then(response => {
       setData(response.data.data)
-      console.log(response.data.pagination)
+      setCurrentPage(Number(response.data.pagination.currentPage))
+      setLastPage(Number(response.data.pagination.lastPage))
     })
 
     api.get('supervisor').then(response => {
@@ -46,20 +62,74 @@ function Search() {
 
       setPromoters(promotersList);
     });
+
+    api.get('status').then(response => {
+      const statusList = response.data.map((status: any) =>
+      status.opcoes);
+
+      setStatus(statusList);
+    })
   }, []);
 
-  function handleSuperviserOrPromoterOption(event: ChangeEvent<HTMLSelectElement>) {
-    const supervisorOption = event.target.value;
-    const promoterOption = event.target.value;
+  useEffect(() => {
+    api.get(`conclude?perpage=20&page=${currentPage}&supervisor=${supervisorSelected}&promotor=${promoterSelected}&status=${statusSelected}`).then(response => {
+      setData(response.data.data)
+      setCurrentPage(Number(response.data.pagination.currentPage))
+      setLastPage(Number(response.data.pagination.lastPage))
+    })
 
+    if (promoterChanged) {
+      api.get(`supervisor?promotor=${promoterSelected}`).then(response => {
+        const supervisorList = response.data.map((supervisor: any) =>
+          supervisor.supervisao_prisma);
+
+        setSupervisors(supervisorList);
+      });
+      setPromoterChanged(false)
+    }
+
+    if (supervisorChanged) {
+      api.get(`promoter?supervisor=${supervisorSelected}`).then(response => {
+        const promotersList = response.data.map((promoter: any) =>
+          promoter.promotor_prisma);
+
+        setPromoters(promotersList);
+      });
+      setSupervisorChanged(false)
+    }
+
+    if (statusChanged) {
+      api.get(`supervisor?promoter?status=${statusSelected}`).then(response => {
+        const supervisorList = response.data.map((supervisor: any) =>
+        supervisor.supervisao_prisma);
+        const promotersList = response.data.map((promoter: any) => 
+        promoter.promotor_prisma)
+
+        setSupervisors(supervisorList);
+        setPromoters(promotersList)
+      })
+    }
+  }, [currentPage, supervisorSelected, promoterSelected, statusSelected]);
+
+  function handleSupervisorOption(event: ChangeEvent<HTMLSelectElement>) {
+    const supervisorOption = event.target.value;
+    
     setSupervisorSelected(supervisorOption);
-    setPromoterSelected(promoterOption);
+    setSupervisorChanged(true)
   };
 
-  function handleSubmit() {
-    api.get(`conclude?supervisor=${supervisorSelected}&promotor=${promoterSelected}`).then(response => {
-      setData(response.data.data);
-    });
+  function handlePromoterOption(event: ChangeEvent<HTMLSelectElement>) {
+    const promoterOption = event.target.value;
+    
+    setPromoterSelected(promoterOption);
+    setPromoterChanged(true)
+  };
+
+  function handleStatusOption(event: ChangeEvent<HTMLSelectElement>) {
+    const statusOption = event.target.value;
+
+    setStatusSelected(statusOption);
+    setStatusChanged(true);
   };
 
   const history = useHistory();
@@ -68,74 +138,22 @@ function Search() {
     history.push(`/result/${id}`);
   };
 
-  // Pagination
-  const totalPagesList = data.map(datas => datas.id);
+  function handleNextPage() {
+    if (currentPage < lastPage) setCurrentPage(currentPage + 1)
+  }
 
-  const html = {
-    get(element: any) {
-      return document.querySelector(element);
-    }
-  };
-
-  const state = {
-    page: 1,
-    perPage: 15,
-    totalPages: totalPagesList.length / 15,
-  };
-
-  const controls = {
-    next() {
-      state.page++
-
-      if (state.page > state.totalPages) {
-        state.page--
-      };
-    },
-
-    prev() {
-      state.page--
-
-      if (state.page < 1) {
-        state.page++
-      };
-    },
-
-    createListeners() {
-      html.get('.next').addEventListener('click', () => {
-        controls.next();
-        update();
-      });
-
-      html.get('.prev').addEventListener('click', () => {
-        controls.prev();
-        update();
-      });
-    },
-  };
-
-  controls.createListeners();
-
-  function update() {
-    console.log(state.page);
-  };
-
-  // $(function() {
-  //   $('#pageContainer .tableContainer').hide();
-
-  //   $('#pageContainer .formContainer .buttonContainer .formButton').on('click', function() {
-  //     $('#pageContainer .tableContainer').slideDown('fast');
-  //   });
-  // });
+  function handlePrevPage() {
+    if (currentPage > 1) setCurrentPage(currentPage - 1)
+  }
 
   return (
     <div id="pageContainer">
       <div className="formContainer">
 
         <div className="selectBoxContainer">
-          <label htmlFor="superviser">Supervisor</label><br />
-          <select className="selectBox" onChange={handleSuperviserOrPromoterOption}>
-            <option value="">Selecione o Supervisor</option>
-            
+          <select className="selectBox" onChange={handleSupervisorOption}>
+            <option value="">SELECIONE O SUPERVISOR</option>
+
             {supervisors.map(supervisor => (
               <option
                 key={supervisor}
@@ -146,10 +164,9 @@ function Search() {
         </div>
 
         <div className="selectBoxContainer">
-          <label htmlFor="districtAttorney">Promotor</label><br />
-          <select className="selectBox" onChange={handleSuperviserOrPromoterOption}>
-            <option value="">Selecione o Promotor</option>
-            
+          <select className="selectBox" onChange={handlePromoterOption}>
+            <option value="">SELECIONE O PROMOTOR</option>
+
             {promoters.map(promoter => (
               <option
                 key={promoter}
@@ -159,35 +176,69 @@ function Search() {
           </select>
         </div>
 
-        <div className="buttonContainer">
-          <button className="formButton" onClick={handleSubmit}>Buscar</button>
+        <div className="selectBoxContainer">
+          <select className="selectBox" onChange={handleStatusOption}>
+            <option value="">SELECIONE OS STATUS</option>
+
+            {status.map(option => (
+              <option
+              key={option}
+              value={option}>{option}
+              </option>
+            ))}
+          </select>
         </div>
+
+        <div className="buttonContainer">
+        </div>
+      </div>
+
+      <div className="pagination">
+        <button className="prev" onClick={handlePrevPage}><MdNavigateBefore size="24" /></button>
+        <div className="numbers">
+          <div>{currentPage}</div>
+        </div>
+        <button className="next" onClick={handleNextPage}><MdNavigateNext size="24" /></button>
       </div>
 
       <div className="tableContainer">
         <Table className="table">
           <Thead>
             <Tr>
+              <Th>ID</Th>
               <Th>Razão social</Th>
-              <Th>UF</Th>
               <Th>Telefone</Th>
-              <Th>Tipo de Pessoa</Th>
-              <Th>Data de Inclusão</Th>
-              <Th>Status BackOffice</Th>
+              <Th>Tipo Pessoa</Th>
+              <Th>Data Inclusão</Th>
+              <Th>Chave EPS</Th>
+              <Th>Agente</Th>
+              <Th>Nome Indicado</Th>
+              <Th>Gerente</Th>
+              <Th>UF</Th>
+              <Th>Status Bko</Th>
               <Th>Supervisor</Th>
+              <Th>Promotor</Th>
+              <Th>Status</Th>
             </Tr>
           </Thead>
-          
+
           <Tbody>
             {data.map(item => (
               <Tr key={item.id} onClick={() => handleClick(item.id)}>
-                <Td>{item.razao_social}</Td>
-                <Td>{item.uf}</Td>
-                <Td>{item.telefone}</Td>
-                <Td>{item.tipo_de_pessoa}</Td>
-                <Td>{item.data_inclusao}</Td>
-                <Td>{item.status_backoffice}</Td>
-                <Td>{item.supervisao_prisma}</Td>
+                <Td>{item.id ? item.id : 'NÃO INFORMADO'}</Td>
+                <Td>{item.razao_social ? item.razao_social : 'NÃO INFORMADO'}</Td>
+                <Td>{item.telefone ? item.telefone : 'NÃO INFORMADO'}</Td>
+                <Td>{item.tipo_de_pessoa ? item.tipo_de_pessoa : 'NÃO INFORMADO'}</Td>
+                <Td>{item.data_inclusao ? item.data_inclusao : 'NÃO INFORMADO'}</Td>
+                <Td>{item.chave_cliente_eps ? item.chave_cliente_eps : 'NÃO INFORMADO'}</Td>
+                <Td>{item.agnt ? item.agnt : 'NÃO INFORMADO'}</Td>
+                <Td>{item.nm_indicado ? item.nm_indicado : 'NÃO INFORMADO'}</Td>
+                <Td>{item.gerente ? item.gerente : 'NÃO INFORMADO'}</Td>
+                <Td>{item.uf ? item.uf : 'NÃO INFORMADO'}</Td>
+                <Td>{item.status_backoffice ? item.status_backoffice : 'NÃO INFORMADO'}</Td>
+                <Td>{item.supervisao_prisma ? item.supervisao_prisma : 'NÃO INFORMADO'}</Td>
+                <Td>{item.promotor_prisma ? item.promotor_prisma : <p className="empty">SEM ATRIBUIÇÃO</p>}</Td>
+                <Td>{item.opcoes ? item.opcoes : <p className="empty">SEM TRATATIVA</p>}</Td>
               </Tr>
             ))}
           </Tbody>
@@ -195,15 +246,13 @@ function Search() {
       </div>
 
       <div className="pagination">
-        <button className="prev">&lt;</button>
-        
+        <button className="prev" onClick={handlePrevPage}><MdNavigateBefore size="24" /></button>
         <div className="numbers">
-          <div>1</div>
+          <div>{currentPage}</div>
         </div>
-        
-        <button className="next">&gt;</button>
+        <button className="next" onClick={handleNextPage}><MdNavigateNext size="24" /></button>
       </div>
-    </div>
+    </div >
   )
 };
 
