@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { useParams } from 'react-router-dom';
 
@@ -32,17 +32,55 @@ function Result() {
   const { id } = useParams<dataParams>();
 
   const [data, setData] = useState<data[]>([]);
+  const [promoter, setPromoter] = useState<string>('')
+  const [status, setStatus] = useState<string>('')
+  const [notes, setNotes] = useState<string>('')
+
 
   useEffect(() => {
     api.get(`conclude/${id}`).then(response => {
       setData(response.data);
-      console.log(response.data)
+      setPromoter(response.data[0].promotor_prisma)
+      setStatus(response.data[0].opcoes)
+      setNotes(response.data[0].observacoes)
     });
   }, []);
 
+  function handlePromoter(event: ChangeEvent<HTMLInputElement>) {
+    const text = event.target.value;
+    setPromoter(text)
+  }
+
+  function handleNotes(event: ChangeEvent<HTMLTextAreaElement>) {
+    const text = event.target.value;
+    setNotes(text)
+  }
+
+  function handleStatus(event: ChangeEvent<HTMLSelectElement>) {
+    const text = event.target.value;
+    setStatus(text)
+  }
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+
+    const promotor_prisma = promoter
+    const observacoes = notes
+    const opcoes = status
+
+    const formData = {
+      promotor_prisma,
+      observacoes,
+      opcoes
+    }
+
+    const response = await api.put(`conclude/${id}`, formData)
+
+    setData(response.data)
+  }
+
   return (
     <div id="pageContainer">
-
       <div className="tableContainer">
         <Table className="table">
           <Thead>
@@ -64,7 +102,6 @@ function Result() {
               <Th>Observações</Th>
             </Tr>
           </Thead>
-
           <Tbody>
             {data.map(item => (
               <Tr key={item.id}>
@@ -88,19 +125,31 @@ function Result() {
           </Tbody>
         </Table>
 
-        <div className="updateContainer">
-          <input type="text" placeholder="DIGITE O NOME DO PROMOTOR" className="textInput" />
-          <textarea className="textArea" placeholder="OBSERVAÇÕES" />
-
-          <select className="selectBox" placeholder="STATUS" onChange={() => { }}>
-            <option value=""></option>
+        <form onSubmit={handleSubmit} className="updateContainer">
+          <input
+            type="text"
+            value={promoter}
+            onChange={handlePromoter}
+            placeholder="DIGITE O NOME DO PROMOTOR"
+            className="textInput"
+          />
+          <textarea
+            value={notes}
+            onChange={handleNotes}
+            className="textArea"
+            placeholder="OBSERVAÇÕES"
+          />
+          <select className="selectBox" placeholder="STATUS" onChange={handleStatus}>
+            <option value={status}>{status}</option>
             <option value="CLIENTE DESISTIU">CLIENTE DESISTIU</option>
             <option value="CLIENTE RECEBEU A MAQUINA">CLIENTE RECEBEU A MAQUINA</option>
             <option value="CLIENTE SEM INTERESSE">CLIENTE SEM INTERESSE</option>
             <option value="INSUCESSO NA TENTATIVA DE CONTATO">INSUCESSO NA TENTATIVA DE CONTATO</option>
             <option value="VENDA CONCLUIDA COM SUCESSO">VENDA CONCLUIDA COM SUCESSO</option>
           </select>
-        </div>
+          <button type="submit" className="submitButton" >SALVAR</button>
+        </form>
+
       </div>
     </div>
   )
